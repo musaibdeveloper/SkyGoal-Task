@@ -4,7 +4,8 @@ import config from "config"
 
 function AuthMiddleware(req, res, next) {
     try {
-        let tokencollect = req.header["access-token"]
+        let tokencollect = req.headers["token"]
+        console.log(tokencollect);
         if (!tokencollect) {
             return res.status(404).json({ msg: "Please provide a token" })
         }
@@ -12,16 +13,14 @@ function AuthMiddleware(req, res, next) {
         let jwtverify = jwt.verify(tokencollect, config.get("JWTKEY"));
 
         if (!jwtverify) {
-            res.status(500).json({ msg: "Time out... or Invalid Token." })
+             return res.status(500).json({ msg: "Time out... or Invalid Token." })
         }
-
-        console.log(jwtverify);
-
+        
         next();
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({ msg: "Token Expired" })
+        res.status(500).json({error : error})
     }
 }
 

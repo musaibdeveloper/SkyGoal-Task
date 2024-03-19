@@ -3,7 +3,6 @@ import config from "config";
 import express from "express";
 import jwt from "jsonwebtoken";
 import userModel from "../model/user/user.js";
-
 import {
     errorMiddelware,
     userRegisterValidations,
@@ -26,9 +25,10 @@ publicRouter.post(
             });
 
             if (emailCheck || passwordCheck) {
-                res
+                return res
                     .status(200)
                     .json({ msg: "Already a User email and id exisit. Please Login!" });
+
             }
 
             // Encrypt the password.
@@ -42,13 +42,13 @@ publicRouter.post(
                     id: getNewUserData.email,
                 },
                 config.get("JWTKEY"),
-                { expiresIn: "6000" }
+                { expiresIn: "1h" }
             );
             console.log(EmailToken);
 
             //   Save the User.
             await getNewUserData.save();
-            res.status(200).json({ user: getNewUserData, token: EmailToken  });
+            res.status(200).json({ user: getNewUserData, token: EmailToken });
         } catch (error) {
             console.log(error);
             res.status(500).json({ msg: "Internal Server Error at Signup" });
@@ -79,7 +79,7 @@ publicRouter.post("/login", async (req, res) => {
         const token = jwt.sign(
             { email: FindExistingUser.email, id: FindExistingUser._id },
             config.get("JWTKEY"),
-            { expiresIn: "6000" }
+            { expiresIn: "1h" }
         );
 
         res.status(200).json({ user: FindExistingUser, token });

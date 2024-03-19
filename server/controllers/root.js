@@ -37,18 +37,18 @@ publicRouter.post(
             console.log(HashPassword);
 
             // Generate a Token for user and send it.
-            let Token = jwt.sign(
+            let EmailToken = jwt.sign(
                 {
-                    id: getNewUserData._id,
+                    id: getNewUserData.email,
                 },
                 config.get("JWTKEY"),
                 { expiresIn: "6000" }
             );
-            console.log(Token);
+            console.log(EmailToken);
 
             //   Save the User.
             await getNewUserData.save();
-            res.status(200).json({ user: getNewUserData, token: Token });
+            res.status(200).json({ user: getNewUserData, token: EmailToken  });
         } catch (error) {
             console.log(error);
             res.status(500).json({ msg: "Internal Server Error at Signup" });

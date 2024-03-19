@@ -1,5 +1,5 @@
 {
     "PORT": "5000",
     "DB_URI": "mongodb+srv://syedmusaib428:saboor@skygoal.bvxgvfi.mongodb.net/user",
-    "JWTKEY" : "Musaib123@456"
+    "JWTKEY": "Musaib123@456"
 }

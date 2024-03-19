@@ -2,14 +2,14 @@ import { body, validationResult } from "express-validator";
 
 const userRegisterValidations = () => {
   return [
-    body("firstName", "First Name is required &&  > 2 char")
-      .notEmpty()
-      .isLength({ min: 2, max: 15 }),
+
+    body("id", "ID is required").notEmpty(),
+
+    body("firstName", "First Name is required")
+      .notEmpty(),
 
     body("lastName", "Last Name is Required")
-      .notEmpty()
-      .isLength({ min: 2, max: 15 })
-      .withMessage("Length should be <2 and >15"),
+      .notEmpty(),
 
     body("email", "Should be a Valid Email").isEmail(),
 
@@ -26,6 +26,7 @@ const userRegisterValidations = () => {
 const errorMiddelware = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log(errors);
     return res.status(400).json(errors);
   }
   return next();

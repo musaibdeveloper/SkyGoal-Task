@@ -15,7 +15,7 @@ const app = express();
 const PORT = config.get("PORT") || 5000;
 
 
-// Middleware to parse JSON requests
+// Middleware to parse JSON requests. It's used to receive the request from the client side. 
 app.use(express.json())
 
 
@@ -24,14 +24,14 @@ app.get("/", (req, res) => {
 })
 
 // Public Route
-app.use("/user" , publicRouter)
+app.use("/user", publicRouter)
 
-// Route Accessing
+//  Private Route 
 app.use("/user", UserRouter);
 
 
 // Error Handler : 
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404).json({ msg: "Route is not found" })
 })
 

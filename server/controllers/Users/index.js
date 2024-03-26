@@ -1,10 +1,10 @@
 import express from "express";
 
-import userModel from "../../model/user/user.js";
+import userModel from "../../model/user/User.js";
 
-const UserRouter = express.Router();
+const router = express.Router();
 
-UserRouter.get("/getall", async (req, res) => {
+router.get("/getall", async (req, res) => {
   try {
     let UserAllData = await userModel.find();
     res.status(200).json({ msg: UserAllData });
@@ -14,7 +14,7 @@ UserRouter.get("/getall", async (req, res) => {
   }
 });
 
-UserRouter.get("/get/:id", async (req, res) => {
+router.get("/get/:id", async (req, res) => {
   try {
     let id = req.params.id;
     let findUserbyID = await userModel.findOne({ id: id });
@@ -29,7 +29,7 @@ UserRouter.get("/get/:id", async (req, res) => {
   }
 });
 
-UserRouter.put("/update/:ID", async (req, res) => {
+router.put("/update/:ID", async (req, res) => {
   try {
     let id = req.params.ID;
     let inputNewUpdate = req.body;
@@ -51,7 +51,7 @@ UserRouter.put("/update/:ID", async (req, res) => {
   }
 });
 
-UserRouter.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     let deleteuserData = req.params.id;
     await userModel.findOneAndDelete(deleteuserData);
@@ -63,7 +63,7 @@ UserRouter.delete("/delete/:id", async (req, res) => {
   }
 });
 
-UserRouter.delete("/deleteall", async (req, res) => {
+router.delete("/deleteall", async (req, res) => {
   try {
     let deleteAllUser = await userModel.deleteMany({});
     res.status(200).json({ msg: "All User are Deleted" });
@@ -73,4 +73,4 @@ UserRouter.delete("/deleteall", async (req, res) => {
   }
 });
 
-export default UserRouter;
+export default router;

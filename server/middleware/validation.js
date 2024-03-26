@@ -3,7 +3,6 @@ import { body, validationResult } from "express-validator";
 const userRegisterValidations = () => {
   return [
 
-    body("id", "ID is required").notEmpty(),
 
     body("firstName", "First Name is required")
       .notEmpty(),

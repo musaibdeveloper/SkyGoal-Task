@@ -2,15 +2,15 @@ import bcrypt from "bcrypt";
 import config from "config";
 import express from "express";
 import jwt from "jsonwebtoken";
-import userModel from "../model/user/user.js";
+import userModel from "../../model/user/User.js";
 import {
     errorMiddelware,
     userRegisterValidations,
-} from "../middleware/validation.js";
+} from "../../middleware/validation.js";
 
-const publicRouter = express.Router();
+const router = express.Router();
 
-publicRouter.post(
+router.post(
     "/signup",
     userRegisterValidations(),
     errorMiddelware,
@@ -56,7 +56,7 @@ publicRouter.post(
     }
 );
 
-publicRouter.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
     try {
         // Accept only two input.
         const { email, password } = req.body;
@@ -89,4 +89,4 @@ publicRouter.post("/login", async (req, res) => {
     }
 });
 
-export default publicRouter;
+export default router;

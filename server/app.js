@@ -3,13 +3,13 @@ import express from "express";
 import "./utils/dbConnect.js";
 
 // Import Public Route.
-import publicRouter from "./controllers/root.js";
+import publicRouter from "./controllers/PublicRouter/root.js";
 
 // Import Middleware function.
 import AuthMiddleware from "./middleware/authmiddleware.js";
 
 // Import User Route.
-import UserRouter from "./controllers/Users/index.js";
+import privateRouter from "./controllers/Users/index.js";
 
 // Create a Express Application.
 const app = express();
@@ -19,8 +19,14 @@ const PORT = config.get("PORT") || 5000;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("There you GO 🙂");
+  try {
+    res.status(200).json({ msg: "Server is Up and Running" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Internal Server error" });
+  }
 });
+
 
 // Public Route
 app.use("/user", publicRouter);
@@ -29,7 +35,7 @@ app.use("/user", publicRouter);
 app.use(AuthMiddleware);
 
 //  Private Route
-app.use("/user", UserRouter);
+app.use("/user", privateRouter);
 
 // Error Handler :
 app.use((req, res) => {

@@ -1,13 +1,13 @@
 {
   "name": "skygoal-task",
   "version": "1.0.0",
-  "description": "",
+  "description": "About Authentication APIs using Express and MongoDB with signup, login, and protected routes using JWT token authentication",
   "main": "app.js",
   "type": "module",
   "scripts": {
     "start": "nodemon app.js"
   },
-  "keywords": [],
+  "keywords": ["NodeJS", "JavaScript", "JWT", "API"],
   "author": "",
   "license": "ISC",
   "dependencies": {

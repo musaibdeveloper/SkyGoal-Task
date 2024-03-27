@@ -12,7 +12,7 @@
 
     ```bash
     cd SkyGoal-Task
-    cd sevrr
+    cd server
     npm install
     ```
 
